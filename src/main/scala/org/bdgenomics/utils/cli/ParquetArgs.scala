@@ -29,10 +29,12 @@ trait ParquetRDDArgs {
 
 trait SaveArgs
   extends ParquetRDDArgs {
-  var outputPath: String
+  def outputPath: String
 }
 
-trait ParquetArgs extends Args4jBase with ParquetRDDArgs {
+trait ParquetArgs
+  extends Args4jBase
+    with ParquetRDDArgs {
   @Option(required = false, name = "-parquet_block_size", usage = "Parquet block size (default = 128mb)")
   var blockSize = 128 * 1024 * 1024
   @Option(required = false, name = "-parquet_page_size", usage = "Parquet page size (default = 1mb)")
@@ -45,16 +47,21 @@ trait ParquetArgs extends Args4jBase with ParquetRDDArgs {
   var logLevel = "SEVERE"
 }
 
-trait ParquetSaveArgs extends ParquetArgs with SaveArgs
+trait ParquetSaveArgs
+  extends ParquetArgs
+    with SaveArgs
 
 trait LoadFileArgs {
   @Argument(required = true, metaVar = "INPUT", usage = "The file to load as input", index = 0)
-  var inputPath: String = null
+  var inputPath: String = _
 }
 
 trait SaveFileArgs {
   @Argument(required = true, metaVar = "OUTPUT", usage = "The file to save as output", index = 1)
-  var outputPath: String = null
+  var outputPath: String = _
 }
 
-trait ParquetLoadSaveArgs extends ParquetSaveArgs with LoadFileArgs with SaveFileArgs
+trait ParquetLoadSaveArgs
+  extends ParquetSaveArgs
+    with LoadFileArgs
+    with SaveFileArgs
