@@ -346,3 +346,9 @@ freenode.net channel. Come join us and ask questions.
 # License
 
 bdg-utils is released under an [Apache 2.0 license](LICENSE.txt).
+# .
+
+[![Build Status](https://travis-ci.org/ryan-williams/..svg?branch=master)](https://travis-ci.org/ryan-williams/.)
+[![Coverage Status](https://coveralls.io/repos/github/ryan-williams/./badge.svg?branch=master)](https://coveralls.io/github/ryan-williams/.?branch=master)
+[![Maven Central](https://img.shields.io/maven-central/v/org.hammerlab/._2.11.svg?maxAge=600)](http://search.maven.org/#search%7Cga%7C1%7Corg.hammerlab%20.)
+
