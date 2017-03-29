@@ -27,7 +27,8 @@ trait ParquetRDDArgs {
   var disableDictionaryEncoding: Boolean
 }
 
-trait SaveArgs extends ParquetRDDArgs {
+trait SaveArgs
+  extends ParquetRDDArgs {
   var outputPath: String
 }
 
