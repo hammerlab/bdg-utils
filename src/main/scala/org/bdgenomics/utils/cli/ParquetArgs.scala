@@ -17,8 +17,10 @@
  */
 package org.bdgenomics.utils.cli
 
-import org.kohsuke.args4j.{ Argument, Option }
 import org.apache.parquet.hadoop.metadata.CompressionCodecName
+import org.hammerlab.args4s.JPathHandler
+import org.hammerlab.paths.Path
+import org.kohsuke.args4j.{ Argument, Option }
 
 trait ParquetRDDArgs {
   var blockSize: Int
@@ -29,21 +31,21 @@ trait ParquetRDDArgs {
 
 trait SaveArgs
   extends ParquetRDDArgs {
-  def outputPath: String
+  def outputPath: Path
 }
 
 trait ParquetArgs
   extends Args4jBase
     with ParquetRDDArgs {
-  @Option(required = false, name = "-parquet_block_size", usage = "Parquet block size (default = 128mb)")
+  @Option(required = false, name = "--parquet-block-size", usage = "Parquet block size (default = 128mb)")
   var blockSize = 128 * 1024 * 1024
-  @Option(required = false, name = "-parquet_page_size", usage = "Parquet page size (default = 1mb)")
+  @Option(required = false, name = "--parquet-page-size", usage = "Parquet page size (default = 1mb)")
   var pageSize = 1 * 1024 * 1024
-  @Option(required = false, name = "-parquet_compression_codec", usage = "Parquet compression codec")
+  @Option(required = false, name = "--parquet-compression-codec", usage = "Parquet compression codec")
   var compressionCodec = CompressionCodecName.GZIP
-  @Option(name = "-parquet_disable_dictionary", usage = "Disable dictionary encoding")
+  @Option(name = "--parquet-disable-dictionary", usage = "Disable dictionary encoding")
   override var disableDictionaryEncoding = false
-  @Option(required = false, name = "-parquet_logging_level", usage = "Parquet logging level (default = severe)")
+  @Option(required = false, name = "--parquet-logging-level", usage = "Parquet logging level (default = severe)")
   var logLevel = "SEVERE"
 }
 
@@ -52,13 +54,25 @@ trait ParquetSaveArgs
     with SaveArgs
 
 trait LoadFileArgs {
-  @Argument(required = true, metaVar = "INPUT", usage = "The file to load as input", index = 0)
-  var inputPath: String = _
+  @Argument(
+    required = true,
+    metaVar = "INPUT",
+    usage = "The file to load as input",
+    index = 0,
+    handler = classOf[JPathHandler]
+  )
+  var inputPath: Path = _
 }
 
 trait SaveFileArgs {
-  @Argument(required = true, metaVar = "OUTPUT", usage = "The file to save as output", index = 1)
-  var outputPath: String = _
+  @Argument(
+    required = true,
+    metaVar = "OUTPUT",
+    usage = "The file to save as output",
+    index = 1,
+    handler = classOf[JPathHandler]
+  )
+  var outputPath: Path = _
 }
 
 trait ParquetLoadSaveArgs
