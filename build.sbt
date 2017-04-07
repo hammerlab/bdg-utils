@@ -8,7 +8,7 @@ deps ++= Seq(
   libs.value('bdg_utils_metrics),
   libs.value('bdg_utils_misc),
   libs.value('paths),
-  "org.apache.parquet" % "parquet-avro" % "1.8.0"
+  libs.value('parquet_avro)
 )
 
 providedDeps ++= Seq(
