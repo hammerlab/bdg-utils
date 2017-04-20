@@ -18,7 +18,7 @@
 package org.bdgenomics.utils.cli
 
 import org.apache.parquet.hadoop.metadata.CompressionCodecName
-import org.hammerlab.args4s.JPathHandler
+import org.hammerlab.args4s.PathHandler
 import org.hammerlab.paths.Path
 import org.kohsuke.args4j.{ Argument, Option }
 
@@ -59,7 +59,7 @@ trait LoadFileArgs {
     metaVar = "INPUT",
     usage = "The file to load as input",
     index = 0,
-    handler = classOf[JPathHandler]
+    handler = classOf[PathHandler]
   )
   var inputPath: Path = _
 }
@@ -70,7 +70,7 @@ trait SaveFileArgs {
     metaVar = "OUTPUT",
     usage = "The file to save as output",
     index = 1,
-    handler = classOf[JPathHandler]
+    handler = classOf[PathHandler]
   )
   var outputPath: Path = _
 }
