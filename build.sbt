@@ -1,6 +1,6 @@
 organization := "org.hammerlab.bdg-utils"
 name := "cli"
-version := "0.2.14"
+version := "0.2.15"
 
 deps ++= Seq(
   libs.value('args4j),
@@ -12,6 +12,6 @@ deps ++= Seq(
 )
 
 providedDeps ++= Seq(
-  libs.value('hadoop),
-  libs.value('spark)
+  hadoop.value,
+  spark.value
 )
