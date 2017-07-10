@@ -17,10 +17,11 @@
  */
 package org.bdgenomics.utils.cli
 
-import java.io.{ StringWriter, PrintWriter }
+import java.io.{ PrintWriter, StringWriter }
+
 import org.apache.spark.{ SparkConf, SparkContext }
-import org.bdgenomics.utils.misc.Logging
 import org.bdgenomics.utils.instrumentation._
+import org.bdgenomics.utils.misc.Logging
 
 trait BDGCommandCompanion {
   val commandName: String
