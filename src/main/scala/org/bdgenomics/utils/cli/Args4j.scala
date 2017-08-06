@@ -21,47 +21,50 @@ import org.kohsuke.args4j.{ Option, CmdLineException, CmdLineParser }
 import scala.collection.JavaConversions._
 
 class Args4jBase {
-  @Option(name = "-h", aliases = Array("-help", "--help", "-?"), usage = "Print help")
+  @Option(
+    name = "-h",
+    aliases = Array("-help", "--help", "-?"),
+    usage = "Print help"
+  )
   var doPrintUsage: Boolean = false
-  @Option(name = "-print_metrics", usage = "Print metrics to the log on completion")
+
+  @Option(
+    name = "-print_metrics",
+    usage = "Print metrics to the log on completion"
+  )
   var printMetrics: Boolean = false
 }
 
 object Args4j {
   val helpOptions = Array("-h", "-help", "--help", "-?")
 
-  def apply[T: Manifest](args: Array[String],
-                         ignoreCmdLineExceptions: Boolean = false)(
+  def apply[T: Manifest](args: Array[String])(
       implicit ev: T ⇒ Args4jBase
-  ): T = {
+  ): Either[T, Int] = {
     val args4j: T = manifest[T].runtimeClass.asInstanceOf[Class[T]].newInstance()
     val parser = new CmdLineParser(args4j)
     parser.setUsageWidth(150)
 
-    def displayHelp(exitCode: Int = 0) = {
+    def displayHelp(exitCode: Int = 0): Right[T, Int] = {
       parser.printUsage(System.out)
-      System.exit(exitCode)
+      Right(exitCode)
     }
 
     try {
       parser.parseArgument(args.toList)
-      if (!ignoreCmdLineExceptions && args4j.doPrintUsage) {
+      if (args4j.doPrintUsage)
         displayHelp()
-      }
+      else
+        Left(args4j)
     } catch {
       case e: CmdLineException =>
-        if (!ignoreCmdLineExceptions) {
-          if (args4j.doPrintUsage) {
-            displayHelp()
-          } else {
-            println(e.getMessage)
-            displayHelp(1)
-          }
+        if (args4j.doPrintUsage)
+          displayHelp()
+        else {
+          println(e.getMessage)
+          displayHelp(1)
         }
     }
-
-    args4j
   }
-
 }
 
