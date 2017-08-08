@@ -4,7 +4,7 @@ version := "0.3.0"
 addScala212
 deps ++= Seq(
   args4j,
-  "org.hammerlab" ^^ "args4s" ^ "1.3.0",
+  args4s % "1.3.0",
   paths % "1.2.0",
   parquet_avro
 )
