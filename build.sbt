@@ -1,10 +1,11 @@
-organization := "org.hammerlab.bdg-utils"
+group("org.hammerlab.bdg-utils")
 name := "cli"
-version := "0.3.0"
+r"0.3.0"
+github.repo("bdg-utils")
 addScala212
-deps ++= Seq(
+dep(
   args4j,
   args4s % "1.3.0",
-  paths % "1.2.0",
+   paths % "1.2.0",
   parquet_avro
 )
